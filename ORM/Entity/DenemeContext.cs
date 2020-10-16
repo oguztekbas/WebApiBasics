@@ -21,6 +21,8 @@ namespace WebApiBasics.ORM.Entity
         public virtual DbSet<Category> Category { get; set; }
         public virtual DbSet<Product> Product { get; set; }
 
+        public virtual DbSet<DynamicMenu> DynamicMenu { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -47,6 +49,11 @@ namespace WebApiBasics.ORM.Entity
                     .WithMany(p => p.Product)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_Product_Category");
+            });
+
+            modelBuilder.Entity<DynamicMenu>(entity =>
+            {
+                entity.Property(e => e.MenuName).IsRequired();
             });
 
             base.OnModelCreating(modelBuilder);

@@ -26,6 +26,7 @@ namespace TryNetCoreWebApi.Controllers
             db = _db;
         }
 
+        
         [Route("getproducts")]
         [HttpGet]
         public async Task<IActionResult> GetProducts()
@@ -164,6 +165,30 @@ namespace TryNetCoreWebApi.Controllers
 
 
         }
+
+        
+        [Route("getmenus")]
+        [HttpGet]
+        public async Task<IActionResult> GetMenus()
+        {
+
+            var menus = await db.DynamicMenu
+                .Select(i => new DtoMenu()
+                {
+                    Id = i.Id,
+                    MenuName = i.MenuName
+                })
+                .ToListAsync();
+
+            if (menus == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(menus);
+        }
+
+
 
 
 

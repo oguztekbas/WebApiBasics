@@ -49,14 +49,9 @@ namespace WebApiBasics.Controllers
 
             if(result.Succeeded)
             {
-
                 return StatusCode(201);
-
             }
-
             return BadRequest(result.Errors);
-
-
         }
 
         [Route("login")]
